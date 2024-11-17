@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block main %}
+  <h1>RiffMates News Advanced</h1>
+  <div role="feed">
+    {% for date, title in news %}
+    <article class="box {% cycle "ok" "info" %}" aria-labelledby="f1-a1-label">
+        <h2 id="f1-a1-label">{{title}}</h2>
+        <p>{{date|date}}</p>
+        <a href="#">A focusable link</a>
+      </article>
+    {% endfor %}
+  </div>
+{% endblock main%}
