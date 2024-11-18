@@ -1,0 +1,19 @@
+<!-- RiffMates/templates/band.html -->
+
+{% extends "base.html" %}
+
+{% block title %}
+  {{block.super}} > Band Details
+{% endblock %}
+
+{% block content %}
+  <h1>{{band.name}}</h1>
+
+  <ul>
+  {% for member in musicians %}
+    <li>{{member.first_name}} {{member.last_name}}</li>
+  {% empty %}
+    <li>no band members</li>
+  {% endfor %}
+  </ul>
+{% endblock content %}
