@@ -8,4 +8,6 @@ urlpatterns = [
     path("musicians/", views.musicians, name="musicians"),
     path("", views.bands, name="bands"),
     path("<int:band_id>", views.band, name="band"),
+    path("venues/", views.venues, name="venues"),
+    path("venues/<int:venue_id>", views.venue, name="venue"),
 ]

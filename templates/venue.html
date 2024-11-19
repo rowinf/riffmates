@@ -1,0 +1,19 @@
+<!-- RiffMates/templates/venue.html -->
+
+{% extends "base.html" %}
+
+{% block title %}
+  {{block.super}} > Venue Details
+{% endblock %}
+
+{% block content %}
+  <h1>{{venue.name}}</h1>
+
+  <ul>
+  {% for room in rooms %}
+    <li>{{room.name}}</li>
+  {% empty %}
+    <li>no rooms</li>
+  {% endfor %}
+  </ul>
+{% endblock content %}

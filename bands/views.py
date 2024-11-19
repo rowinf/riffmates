@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.core.paginator import Paginator
 
-from bands.models import Musician, Band
+from bands.models import Musician, Band, Venue
 
 
 def musicians(request):
@@ -57,3 +57,31 @@ def band(request, band_id):
     data = {"band": band, "musicians": musicians}
 
     return render(request, "band.html", data)
+
+
+def venues(request):
+    venues = Venue.objects.all().order_by("name")
+    page_num = int(request.GET.get("page", 1))
+    try:
+        per_page = int(request.GET.get("per_page", 2))
+    except Exception as _:
+        per_page = 2
+
+    paginator = Paginator(venues, per_page)
+    if page_num < 1:
+        page_num = 1
+    elif page_num > paginator.num_pages:
+        page_num = paginator.num_pages
+
+    page = paginator.page(page_num)
+    data = {"venues": page.object_list, "page": page, "paginator": paginator}
+
+    return render(request, "venues.html", data)
+
+
+def venue(request, venue_id):
+    venue = get_object_or_404(Venue, id=venue_id)
+    rooms = venue.room_set.all()  # pyright: ignore
+    data = {"venue": venue, "rooms": rooms}
+
+    return render(request, "venue.html", data)

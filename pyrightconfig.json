@@ -1,3 +1,11 @@
 {
-	"include": ["home", "manage.py", "bands"]
+  "venvPath": "./",
+  "venv": "venv",
+	"include": ["."],
+  "exclude": ["migrations", "__pycache__"],
+  "reportMissingTypeStubs": false,
+  "reportGeneralTypeIssues": false,
+  "pythonVersion": "3.12",
+  "typeCheckingMode": "basic",
+  "reportAttributeAccessIssue": "warning"
 }
