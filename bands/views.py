@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render
 from django.core.paginator import Paginator
 
@@ -85,3 +86,12 @@ def venue(request, venue_id):
     data = {"venue": venue, "rooms": rooms}
 
     return render(request, "venue.html", data)
+
+@login_required
+def restricted_page(request):
+    data = {
+        'title': 'Restricted Page',
+        'content': '<h1>You are logged in</h1>',
+    }
+
+    return render(request, "general.html", data)
