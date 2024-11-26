@@ -1,4 +1,7 @@
-from django.contrib.auth.decorators import login_required
+import logging
+
+from django.contrib.auth.signals import user_login_failed
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render
@@ -109,7 +112,7 @@ def musician_restricted(request, musician_id):
     if profile.musician_profiles.filter(id=musician_id).exists():
         allowed = True
     else:
-        # User is not this musician, check if they're a band-mate
+        # User is not this musician, check if they're a bandmate
         musician_profiles = set(
             profile.musician_profiles.all()
         )
@@ -132,6 +135,10 @@ def musician_restricted(request, musician_id):
 
     return render(request, "general.html", data)
 
+@user_passes_test(lambda u: u.is_authenticated and u.userprofile.venues_controlled.exists())
+def venues_restricted(request):
+    return venues(request)
+
 @receiver(post_save, sender=User)
 def user_post_save(sender, **kwargs):
     # Create UserProfile object if User object is new
@@ -146,3 +153,7 @@ def user_post_save(sender, **kwargs):
         except UserProfile.DoesNotExist:
             # No UserProfile exists for this user, create one
             UserProfile.objects.create(user=user)
+
+@receiver(user_login_failed)
+def _user_login_failed(sender, request, **kwargs):
+    logging.warn(f"login failed {kwargs['credentials']['username']} {request.GET['next']}")
