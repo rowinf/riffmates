@@ -21,6 +21,7 @@ from home import views as home_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
     path("credits/", home_views.credits, name="home"),
     path("news/", home_views.news, name="news"),
     path("news-adv/", home_views.advanced_news, name="news_adv"),

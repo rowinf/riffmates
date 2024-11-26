@@ -1,28 +1,49 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
 
-  <title>RiffMates</title>
+    {% load static %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+    <title>RiffMates</title>
 
-  <link rel="stylesheet" href="https://unpkg.com/missing.css@1.1.3">
+    <link rel="stylesheet" href="https://unpkg.com/missing.css@1.1.3">
+    <script src="https://unpkg.com/htmx.org@2.0.3"></script>
 
 </head>
-  <body>
-    <main>
-      {% block title %}
-      {% endblock title %}
-      {% block content %}
-      {% endblock content %}
-    </main>
-
-
-
-    <footer>
-      <p><a href="/">Missing.css</a>, by <a href="https://denizaksimsek.com">Deniz Akşimşek</a>,
-      </p>
-    </footer>
-
-
-
-  </body></html>
+    <body>
+        <div class="sidebar-layout fullscreen">
+            <header>
+                <div class="<h1>">Riff Mates</div>
+                <nav>
+                    <ul role="list">
+                {% if user.is_authenticated %}
+                <li>hello, {{ user.username }}!
+                    <form action="{% url 'logout' %}" method="post" style="display: inline">
+                        {% csrf_token %}
+                        <input type="submit" value="Logout">
+                    </form></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+                    </ul>
+                </nav>
+            </header>
+            <div>
+                <main>
+                    {% block title %}
+                    {% endblock title %}
+                    {% block content %}
+                    {% endblock content %}
+                </main>
+                <footer>
+                    <p>Riff Mates!</p>
+                    <p>
+                        built with <a href="/">Missing.css</a>, by <a href="https://denizaksimsek.com">Deniz Akşimşek</a>,
+                        and htmx
+                    </p>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>
