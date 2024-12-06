@@ -2,28 +2,49 @@
 {% extends "base.html" %}
 
 {% block title %}
-  {{block.super}} > Venue Listing
+    {{ block.super }} > Venue Listing
 {% endblock %}
 
 {% block content %}
-  <h1>Venues</h1>
-
-  <ul>
-    {% for venue in venues %}
-      <li> <a href="{% url 'venue' venue.id %}">
-        {{venue.name}}
-      </a> </li>
-    {% empty %}
-      <li> <i>No venues in the database</i> </li>
-    {% endfor %}
-  </ul>
-
-  {% if page.has_other_pages %}
-    {% if page.has_previous %}
-    <a href="{% url 'venues' %}{% querystring page=page.previous_page_number %}">Prev</a> &nbsp;&nbsp;&nbsp;
+    <h1>Venues</h1>
+    {% if user.is_authenticated %}
+        (Add Venue)
+        {#        <a href="{% url 'add_venue' %}">Add Venue</a>#}
     {% endif %}
-    {% if page.has_next %}
-    <a href="{% url 'venues' %}{% querystring page=page.next_page_number %}">Next</a>
+
+    <ul>
+        {% for venue in venues %}
+            <li>
+                <strong>
+                    <a href="{% url 'venue' venue.id %}">{{ venue.name }} </a>
+                </strong>
+                <br/>
+                {% if venue.controlled %}
+                    <a href="{% url 'edit_venue' venue.id %}">Edit Venue</a>
+                    <br/>
+                {% endif %}
+                {% if venue.picture %}
+                    <div style="width:50px;">
+                        <img src="{{ venue.picture.url }}" alt="{{ venue.name }}" style="inline-size: fit-content;">
+                    </div>
+                {% endif %}
+                {% if venue.description %}
+                    <br/>
+                    <i>   {{ venue.description }}</i>
+                {% endif %}
+                Rooms: {{ venue.rooms }}
+            </li>
+        {% empty %}
+            <li><i>No venues in the database</i></li>
+        {% endfor %}
+    </ul>
+
+    {% if page.has_other_pages %}
+        {% if page.has_previous %}
+            <a href="{% url 'venues' %}{% querystring page=page.previous_page_number %}">Prev</a> &nbsp;&nbsp;&nbsp;
+        {% endif %}
+        {% if page.has_next %}
+            <a href="{% url 'venues' %}{% querystring page=page.next_page_number %}">Next</a>
+        {% endif %}
     {% endif %}
-  {% endif %}
 {% endblock content %}

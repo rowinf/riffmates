@@ -1,0 +1,15 @@
+<!-- RiffMates/templates/edit_musician.html -->
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Musician Details</h1>
+
+    <form enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <strong>
+            <button type="submit">Save</button>
+        </strong>
+    </form>
+
+{% endblock content %}

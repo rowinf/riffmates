@@ -2,11 +2,14 @@
 {% extends "base.html" %}
 
 {% block title %}
-  {{block.super}} > Musician Details
+    {{ block.super }} > Musician Details
 {% endblock %}
 
 {% block content %}
-  <h1>{{musician.first_name}} {{musician.last_name}}</h1>
+    <h1>{{ musician.first_name }} {{ musician.last_name }}</h1>
 
-  <p> Was born {{musician.birth}}. </p>
+    <div style="width: 50px;">
+        <img src="{{ musician.image.url }}" style="inline-size: fit-content;">
+    </div>
+    <p> Was born {{ musician.birth }}. </p>
 {% endblock content %}

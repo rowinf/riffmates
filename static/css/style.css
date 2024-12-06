@@ -1,0 +1,19 @@
+body {
+    font-size: 110%;
+}
+
+p:has(input:user-invalid) > label {
+  color: red;
+}
+
+input:user-invalid {
+  outline: 2px solid red;
+}
+
+p:has(:is(input,textarea):user-valid) > label {
+  color: green;
+}
+
+:is(input,textarea):user-valid {
+  outline: 2px solid green;
+}

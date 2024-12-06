@@ -28,3 +28,6 @@ def advanced_news(request):
         ]
     }
     return render(request, "news_adv.html", data)
+
+def home(request):
+    return render(request, "home.html")

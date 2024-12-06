@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
 
@@ -9,41 +10,53 @@
 
     <link rel="stylesheet" href="https://unpkg.com/missing.css@1.1.3">
     <script src="https://unpkg.com/htmx.org@2.0.3"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
 </head>
-    <body>
-        <div class="sidebar-layout fullscreen">
-            <header>
-                <div class="<h1>">Riff Mates</div>
-                <nav>
-                    <ul role="list">
+<body>
+<div class="sidebar-layout fullscreen">
+    <header>
+        <div class="<h1>">Riff Mates</div>
+        <nav>
+            <ul role="list">
                 {% if user.is_authenticated %}
-                <li>hello, {{ user.username }}!
-                    <form action="{% url 'logout' %}" method="post" style="display: inline">
-                        {% csrf_token %}
-                        <input type="submit" value="Logout">
-                    </form></li>
+                    <li>hello, <a href="{% url 'edit_musician' user.userprofile.musician_profiles.first.id %}">{{ user.username }}</a>!
+                        <form action="{% url 'logout' %}" method="post" style="display: inline">
+                            {% csrf_token %}
+                            <input type="submit" value="Logout">
+                        </form>
+                    </li>
                 {% else %}
                     <li><a href="{% url 'login' %}">Login</a></li>
                 {% endif %}
-                    </ul>
-                </nav>
-            </header>
-            <div>
-                <main>
-                    {% block title %}
-                    {% endblock title %}
-                    {% block content %}
-                    {% endblock content %}
-                </main>
-                <footer>
-                    <p>Riff Mates!</p>
-                    <p>
-                        built with <a href="/">Missing.css</a>, by <a href="https://denizaksimsek.com">Deniz Akşimşek</a>,
-                        and htmx
-                    </p>
-                </footer>
-            </div>
-        </div>
-    </body>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'news' %}">News</a></li>
+                <li><a href="{% url 'musicians' %}">Musicians</a></li>
+                <li><a href="{% url 'bands' %}">Bands</a></li>
+                <li><a href="{% url 'venues' %}">Venues</a></li>
+                <li><a href="{% url 'list_ads' %}">Classified Ads</a></li>
+                <li><a href="{% url 'comment' %}">Leave a comment</a></li>
+                {% if user.is_superuser %}
+                    <li><a href="{% url 'admin:index' %}">Admin</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <div>
+        <main>
+            {% block title %}
+            {% endblock title %}
+            {% block content %}
+            {% endblock content %}
+        </main>
+        <footer>
+            <p>Riff Mates!</p>
+            <p>
+                built with <a href="/">Missing.css</a>, by <a href="https://denizaksimsek.com">Deniz Akşimşek</a>,
+                and htmx
+            </p>
+        </footer>
+    </div>
+</div>
+</body>
 </html>
