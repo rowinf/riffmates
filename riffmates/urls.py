@@ -28,6 +28,7 @@ urlpatterns = [
     path("news-adv/", home_views.advanced_news, name="news_adv"),
     path("bands/", include("bands.urls")),
     path("content/", include("content.urls")),
+    path("productivity/", include("productivity.urls")),
     path("", home_views.home, name="home")
 ]
 if settings.DEBUG:

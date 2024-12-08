@@ -2,12 +2,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Seeking Ad</h1>
+    <h1>Seeking Ad</h1>
 
-<form method="post">
-  {% csrf_token %}
-  {{form.as_p}}
-  <button class="btn btn-dark" type="submit">Save</button>
-</form>
-
+    <form method="post">
+        <legen>Please read our terms and conditions. You must be good natured and honor your agreements.</legen>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-dark" type="submit">Save</button>
+    </form>
 {% endblock content %}

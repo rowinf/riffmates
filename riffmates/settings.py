@@ -35,9 +35,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_cotton",
     "home",
     "bands",
-    "content.apps.ContentConfig"
+    "content.apps.ContentConfig",
+    "productivity.apps.ProductivityConfig"
 ]
 
 MIDDLEWARE = [

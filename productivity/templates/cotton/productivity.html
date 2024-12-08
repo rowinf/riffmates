@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ block.super }}: {{ title }}
+{% endblock %}
+
+{% block content %}
+    <h2>Hope you have a productive day!</h2>
+    <p>add a feeling report, tell me how you're feeling</p>
+    <p>pick from the list and write a description</p>
+
+    <ul>
+        {% for feeling_report in feeling_reports %}
+            <li>
+                {% if feeling_report.description %}
+                <strong>{{ feeling_report.feeling }}</strong>: {{ feeling_report.description }}
+                {% else %}
+                <strong>{{ feeling_report.feeling }}</strong>: <em>(empty)</em>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    <form method="post" hx-boost="true" action="{% url 'edit_feeling_report' 0 %}">
+        {% csrf_token %}
+        <fieldset name="feeling_report">
+            {{ form.as_p }}
+        </fieldset>
+        <strong>
+            <button type="submit">Submit</button>
+        </strong>
+    </form>
+{% endblock content %}
