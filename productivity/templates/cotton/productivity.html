@@ -23,7 +23,31 @@
     <form method="post" hx-boost="true" action="{% url 'edit_feeling_report' 0 %}">
         {% csrf_token %}
         <fieldset name="feeling_report">
-            {{ form.as_p }}
+            {{ report_form.as_p }}
+        </fieldset>
+        <strong>
+            <button type="submit">Submit</button>
+        </strong>
+    </form>
+    {% for todo in todos %}
+      <p>{{ todo.content }}</p>
+    {% endfor %}
+    <form method="post" hx-boost="true" action="{% url 'edit_journal_todo' 0 %}">
+        {% csrf_token %}
+        <fieldset name="feeling_report">
+            {{ todo_form.as_p }}
+        </fieldset>
+        <strong>
+            <button type="submit">Submit</button>
+        </strong>
+    </form>
+    {% for note in notes %}
+      <p>{{ note.content }}</p>
+    {% endfor %}
+    <form method="post" hx-boost="true" action="{% url 'edit_journal_note' 0 %}">
+        {% csrf_token %}
+        <fieldset name="feeling_report">
+            {{ note_form.as_p }}
         </fieldset>
         <strong>
             <button type="submit">Submit</button>
