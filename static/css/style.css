@@ -1,19 +1,31 @@
+
 body {
     font-size: 110%;
 }
 
 p:has(input:user-invalid) > label {
-  color: red;
+    color: red;
 }
 
 input:user-invalid {
-  outline: 2px solid red;
+    outline: 2px solid red;
 }
 
 p:has(:is(input,textarea):user-valid) > label {
-  color: green;
+    color: green;
 }
 
 :is(input,textarea):user-valid {
-  outline: 2px solid green;
+    outline: 2px solid green;
+}
+
+.lucide-icon {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    font-family: LucideIcons, serif;
 }
