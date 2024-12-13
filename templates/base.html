@@ -11,28 +11,69 @@
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
     >
-{#    <script src="https://unpkg.com/htmx.org@2.0.3"></script>#}
+    {#    <script src="https://unpkg.com/htmx.org@2.0.3"></script>#}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'node_modules/@kanety/stimulus-dialog/dist/index.css' %}" rel="stylesheet" type="text/css">
     <script type="importmap">
         {
             "imports": {
                 "@hotwired/stimulus": "{% static 'node_modules/@hotwired/stimulus/dist/stimulus.js' %}",
-                "@kanety/stimulus-dialog": "{% static 'node_modules/@kanety/stimulus-dialog/dist/index.modern.mjs' %}",
-                "@kanety/stimulus-static-actions": "{% static 'node_modules/@kanety/stimulus-static-actions/dist/index.modern.mjs' %}",
                 "htmx.org": "https://unpkg.com/htmx.org@2.0.3"
             }
         }
     </script>
     <script type="module">
         import {Application} from "@hotwired/stimulus";
-        import DialogController from "@kanety/stimulus-dialog";
+        import {Controller} from "@hotwired/stimulus";
+
+        class ModalController extends Controller {
+            static targets = ["modal"];
+
+            connect() {
+                document.addEventListener("keydown", this.closeAllOnEscape.bind(this));
+            }
+
+            disconnect() {
+                document.removeEventListener("keydown", this.closeAllOnEscape.bind(this));
+            }
+
+            open(event) {
+                event.preventDefault();
+                const modalId = event.currentTarget.dataset.target;
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.add("is-active");
+                }
+            }
+
+            close(event) {
+                event.preventDefault();
+                const modal = event.currentTarget.closest(".modal");
+                if (modal) {
+                    modal.classList.remove("is-active");
+                }
+            }
+
+            closeAll(event) {
+                event.preventDefault();
+                this.allModals().forEach((modal) => modal.classList.remove("is-active"));
+            }
+
+            closeAllOnEscape(event) {
+                if (event.key === "Escape") {
+                    this.closeAll(event);
+                }
+            }
+
+            allModals() {
+                return document.querySelectorAll(".modal");
+            }
+        }
 
         const application = Application.start();
 
-        application.register('dialog', DialogController);
+        application.register('modal', ModalController);
     </script>
 </head>
 <body>

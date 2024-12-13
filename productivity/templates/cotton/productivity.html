@@ -32,17 +32,17 @@
             {% for note in notes %}
                 <p>{{ note.content }}</p>
             {% endfor %}
-            <div data-controller="dialog">
-                <div class="st-dialog" data-dialog-target="dialog">
+            <div class="modal" data-dialog-target="dialog" id="myModal" data-controller="modal">
+                <div class="modal-background" data-action="click->modal#close"></div>
+                <div class="modal-content">
                     <h1>Title</h1>
                     <p>content1</p>
                     <p>content2</p>
-                    <hr>
-                    <button type="button" data-action="dialog#close">OK</button>
-                    <button type="button" data-action="dialog#close">Cancel</button>
                 </div>
-                <button type="button" data-action="dialog#open" class="button">Open</button>
+                <button type="button" data-action="modal#close" class="modal-close is-large"
+                        aria-label="close"></button>
             </div>
+            <button type="button" data-controller="modal" data-action="modal#open" class="button" data-target="myModal">Open</button>
         </div>
     </div>
     <dialog>
