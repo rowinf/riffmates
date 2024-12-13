@@ -1,0 +1,16 @@
+{
+  "name": "riffmates",
+  "version": "1.0.0",
+  "description": "Django In Action book practice project riffmates",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "rowinf",
+  "license": "MIT",
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@kanety/stimulus-dialog": "^1.1.0",
+    "@kanety/stimulus-static-actions": "^1.1.0"
+  }
+}

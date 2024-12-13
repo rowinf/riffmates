@@ -1,0 +1,48 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@hotwired/stimulus':
+        specifier: ^3.2.2
+        version: 3.2.2
+      '@kanety/stimulus-dialog':
+        specifier: ^1.1.0
+        version: 1.1.0(@hotwired/stimulus@3.2.2)(@kanety/stimulus-static-actions@1.1.0(@hotwired/stimulus@3.2.2))
+      '@kanety/stimulus-static-actions':
+        specifier: ^1.1.0
+        version: 1.1.0(@hotwired/stimulus@3.2.2)
+
+packages:
+
+  '@hotwired/stimulus@3.2.2':
+    resolution: {integrity: sha512-eGeIqNOQpXoPAIP7tC1+1Yc1yl1xnwYqg+3mzqxyrbE5pg5YFBZcA6YoTiByJB6DKAEsiWtl6tjTJS4IYtbB7A==}
+
+  '@kanety/stimulus-dialog@1.1.0':
+    resolution: {integrity: sha512-MkRlVw8C5yFJ49Fv50TlVzdmBCuze5yBZ24hBO4QG5XXX2iyu9smZmt0Nq86D3CFghNDknwc0IISGdJl3TiebQ==}
+    peerDependencies:
+      '@hotwired/stimulus': ^3.0.0
+      '@kanety/stimulus-static-actions': ^1.0.1
+
+  '@kanety/stimulus-static-actions@1.1.0':
+    resolution: {integrity: sha512-02cLimz1sOF+4wZJ7XpP+j+CnfuaSo1SKHqlnVXxMLkUDEmfpE27/2g7Qb0+dxwXvNta2H+MI7b2/nvZIit50g==}
+    peerDependencies:
+      '@hotwired/stimulus': ^3.0.0
+
+snapshots:
+
+  '@hotwired/stimulus@3.2.2': {}
+
+  '@kanety/stimulus-dialog@1.1.0(@hotwired/stimulus@3.2.2)(@kanety/stimulus-static-actions@1.1.0(@hotwired/stimulus@3.2.2))':
+    dependencies:
+      '@hotwired/stimulus': 3.2.2
+      '@kanety/stimulus-static-actions': 1.1.0(@hotwired/stimulus@3.2.2)
+
+  '@kanety/stimulus-static-actions@1.1.0(@hotwired/stimulus@3.2.2)':
+    dependencies:
+      '@hotwired/stimulus': 3.2.2

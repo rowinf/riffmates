@@ -5,52 +5,77 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Hope you have a productive day!</h2>
-    <p>add a feeling report, tell me how you're feeling</p>
-    <p>pick from the list and write a description</p>
+    <h2 class="subtitle">Hope you have a productive day!</h2>
 
-    <ul>
-        {% for feeling_report in feeling_reports %}
-            <li>
-                {% if feeling_report.description %}
-                <strong>{{ feeling_report.feeling }}</strong>: {{ feeling_report.description }}
-                {% else %}
-                <strong>{{ feeling_report.feeling }}</strong>: <em>(empty)</em>
-                {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
-    <form method="post" hx-boost="true" action="{% url 'edit_feeling_report' 0 %}">
-        {% csrf_token %}
-        <fieldset name="feeling_report">
-            {{ report_form.as_p }}
-        </fieldset>
-        <strong>
-            <button type="submit">Submit</button>
-        </strong>
-    </form>
-    {% for todo in todos %}
-      <p>{{ todo.content }}</p>
-    {% endfor %}
-    <form method="post" hx-boost="true" action="{% url 'edit_journal_todo' 0 %}">
-        {% csrf_token %}
-        <fieldset name="feeling_report">
-            {{ todo_form.as_p }}
-        </fieldset>
-        <strong>
-            <button type="submit">Submit</button>
-        </strong>
-    </form>
-    {% for note in notes %}
-      <p>{{ note.content }}</p>
-    {% endfor %}
-    <form method="post" hx-boost="true" action="{% url 'edit_journal_note' 0 %}">
-        {% csrf_token %}
-        <fieldset name="feeling_report">
-            {{ note_form.as_p }}
-        </fieldset>
-        <strong>
-            <button type="submit">Submit</button>
-        </strong>
-    </form>
+    <div class="grid">
+        <div class="cell">
+
+            <ul>
+                {% for feeling_report in feeling_reports %}
+                    <li>
+                        {% if feeling_report.description %}
+                            <strong>{{ feeling_report.feeling }}</strong>: {{ feeling_report.description }}
+                        {% else %}
+                            <strong>{{ feeling_report.feeling }}</strong>: <em>(empty)</em>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="cell">
+            {% for todo in todos %}
+                <p>{{ todo.content }}</p>
+            {% endfor %}
+        </div>
+        <div class="cell">
+            {% for note in notes %}
+                <p>{{ note.content }}</p>
+            {% endfor %}
+            <div data-controller="dialog">
+                <div class="st-dialog" data-dialog-target="dialog">
+                    <h1>Title</h1>
+                    <p>content1</p>
+                    <p>content2</p>
+                    <hr>
+                    <button type="button" data-action="dialog#close">OK</button>
+                    <button type="button" data-action="dialog#close">Cancel</button>
+                </div>
+                <button type="button" data-action="dialog#open" class="button">Open</button>
+            </div>
+        </div>
+    </div>
+    <dialog>
+        <form method="post" hx-boost="true" action="{% url 'edit_feeling_report' 0 %}">
+            {% csrf_token %}
+            <fieldset name="feeling_report">
+                {{ report_form }}
+            </fieldset>
+            <strong>
+                <button type="submit">Submit</button>
+            </strong>
+        </form>
+    </dialog>
+    <dialog>
+        <form method="post" hx-boost="true" action="{% url 'edit_journal_todo' 0 %}">
+            {% csrf_token %}
+            <fieldset name="feeling_report">
+                {{ todo_form }}
+            </fieldset>
+            <strong>
+                <button type="submit">Submit</button>
+            </strong>
+        </form>
+    </dialog>
+    <dialog>
+        <form method="post" hx-boost="true" action="{% url 'edit_journal_note' 0 %}">
+            {% csrf_token %}
+            <fieldset name="feeling_report">
+                {{ note_form }}
+            </fieldset>
+            <strong>
+                <button type="submit">Submit</button>
+            </strong>
+        </form>
+    </dialog>
 {% endblock content %}

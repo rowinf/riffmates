@@ -18,14 +18,3 @@ p:has(:is(input,textarea):user-valid) > label {
 :is(input,textarea):user-valid {
     outline: 2px solid green;
 }
-
-.lucide-icon {
-    width: 24px;
-    height: 24px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    font-family: LucideIcons, serif;
-}
