@@ -9,7 +9,7 @@
 
     <div class="grid">
         <div class="cell">
-
+            <h2>Reports</h2>
             <ul>
                 {% for feeling_report in feeling_reports %}
                     <li>
@@ -21,14 +21,57 @@
                     </li>
                 {% endfor %}
             </ul>
+            <div class="modal" data-dialog-target="dialog" id="reportModal" data-controller="modal">
+                <div class="modal-background" data-action="click->modal#close"></div>
+                <div class="modal-content">
+                    <div class="content">
+                        <h2>Feeling Report</h2>
+                        <form method="POST" action="{% url 'edit_feeling_report' 0 %}">
+                            {% csrf_token %}
+                            {{ report_form }}
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <button type="button" data-action="modal#close" class="modal-close is-large"
+                        aria-label="close"></button>
+            </div>
+            <button type="button" data-controller="modal" data-action="modal#open" class="button"
+                    data-target="reportModal">
+                Open
+            </button>
         </div>
 
         <div class="cell">
+            <h2>Todos</h2>
             {% for todo in todos %}
                 <p>{{ todo.content }}</p>
             {% endfor %}
+            <div class="modal" data-dialog-target="dialog" id="todoModal" data-controller="modal">
+                <div class="modal-background" data-action="click->modal#close"></div>
+                <div class="modal-content">
+                    <div class="content">
+                        <h2>Journal Todo</h2>
+                        <form method="post" action="{% url 'edit_journal_todo' 0 %}">
+                            {% csrf_token %}
+                            <label>
+                                Content
+                                <input class="input" name="content" id="todo-input" type="text">
+                            </label>
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                <button type="button" data-action="modal#close" class="modal-close is-large"
+                        aria-label="close"></button>
+            </div>
+            <button type="button" data-controller="modal" data-action="modal#open" class="button"
+                    data-target="todoModal">
+                Open
+            </button>
         </div>
         <div class="cell">
+            <h2>Notes</h2>
             {% for note in notes %}
                 <p>{{ note.content }}</p>
             {% endfor %}
@@ -58,28 +101,6 @@
             {% csrf_token %}
             <fieldset name="feeling_report">
                 {{ report_form }}
-            </fieldset>
-            <strong>
-                <button type="submit">Submit</button>
-            </strong>
-        </form>
-    </dialog>
-    <dialog>
-        <form method="post" hx-boost="true" action="{% url 'edit_journal_todo' 0 %}">
-            {% csrf_token %}
-            <fieldset name="feeling_report">
-                {{ todo_form }}
-            </fieldset>
-            <strong>
-                <button type="submit">Submit</button>
-            </strong>
-        </form>
-    </dialog>
-    <dialog>
-        <form method="post" hx-boost="true" action="{% url 'edit_journal_note' 0 %}">
-            {% csrf_token %}
-            <fieldset name="feeling_report">
-                {{ note_form }}
             </fieldset>
             <strong>
                 <button type="submit">Submit</button>

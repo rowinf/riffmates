@@ -45,7 +45,7 @@ def edit_feeling_report(request, feeling_report_id=0):
 
 @login_required
 def edit_journal_todo(request, journal_todo_id=0):
-    journal = DailyJournal.objects.get_or_create(owner=request.user)
+    journal, _ = DailyJournal.objects.get_or_create(owner=request.user)
     if journal_todo_id == 0:
         journal_todo_editing = JournalTodo.objects.create(owner=request.user, priority=1, journal=journal)
     else:
