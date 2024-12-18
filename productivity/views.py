@@ -5,11 +5,12 @@ from django.template.response import TemplateResponse
 from django.utils import http
 
 from productivity.forms import FeelingReportForm, JournalNoteForm, JournalTodoForm
-from productivity.models import FeelingReport, JournalTodo, JournalNote
+from productivity.models import FeelingReport, JournalTodo, JournalNote, DailyJournal
 
 
 # Create your views here.
 
+@login_required
 def productivity(request):
 
     context = {
@@ -25,8 +26,9 @@ def productivity(request):
 
 @login_required
 def edit_feeling_report(request, feeling_report_id=0):
+    journal, _ = DailyJournal.objects.get_or_create(owner=request.user)
     if feeling_report_id == 0:
-        feeling_report_editing = FeelingReport.objects.create(owner=request.user,journal_id=1)
+        feeling_report_editing = FeelingReport.objects.create(owner=request.user,journal=journal)
     else:
         feeling_report_editing = get_object_or_404(FeelingReport, id=feeling_report_id)
 
@@ -43,8 +45,9 @@ def edit_feeling_report(request, feeling_report_id=0):
 
 @login_required
 def edit_journal_todo(request, journal_todo_id=0):
+    journal = DailyJournal.objects.get_or_create(owner=request.user)
     if journal_todo_id == 0:
-        journal_todo_editing = JournalTodo.objects.create(owner=request.user, priority=1, journal_id=1)
+        journal_todo_editing = JournalTodo.objects.create(owner=request.user, priority=1, journal=journal)
     else:
         journal_todo_editing = get_object_or_404(JournalTodo, id=journal_todo_id)
     if request.method == "POST":
@@ -60,8 +63,9 @@ def edit_journal_todo(request, journal_todo_id=0):
 
 @login_required
 def edit_journal_note(request, journal_note_id=0):
+    journal, _ = DailyJournal.objects.get_or_create(owner=request.user)
     if journal_note_id == 0:
-        journal_note_editing = JournalNote.objects.create(owner=request.user, journal_id=1)
+        journal_note_editing = JournalNote.objects.create(owner=request.user, journal=journal)
     else:
         journal_note_editing = get_object_or_404(JournalTodo, id=journal_note_id)
     if request.method == "POST":

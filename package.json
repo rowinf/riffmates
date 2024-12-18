@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo": "^8.0.12",
     "@kanety/stimulus-dialog": "^1.1.0",
     "@kanety/stimulus-static-actions": "^1.1.0"
   }

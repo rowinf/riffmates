@@ -2,3 +2,6 @@ asgiref==3.8.1
 Django==5.1.4
 sqlparse==0.5.2
 fontawesomefree==6.6.0
+## The following requirements were added by pip freeze:
+django-cotton==1.5.1
+pillow==11.0.0
